@@ -2,8 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-/*public struct Int3 : IEquatable<Int3>
+public struct Int3 : IEquatable<Int3>
 {
 	public int x, y, z;
 
@@ -43,4 +42,4 @@ using UnityEngine;
 	{
 		return new Int3(x + other.x, y + other.y, z + other.z);
 	}
-}*/
+}

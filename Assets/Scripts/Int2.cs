@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*public struct Int2 : IEquatable<Int2>
+public struct Int2 : IEquatable<Int2>
 {
 	public int x, z;
 
@@ -27,4 +27,4 @@ using UnityEngine;
 	{
 		return (this.x == other.x && this.z == other.z);
 	}
-}*/
+}
