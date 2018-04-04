@@ -79,14 +79,20 @@ public class World : MonoBehaviour
 			{
 				Int2 grid = new Int2(x, z);
 
+				DataColumn newDataColumn;
+
 				// Does column exist?
 				if (!_columns.ContainsKey(grid))
 				{
 					// Create new data column
-					DataColumn newDataColumn = new DataColumn(grid);
+					newDataColumn = new DataColumn(grid);
 
 					// Store in map
 					_columns[grid] = newDataColumn;
+				}
+				else
+				{
+					newDataColumn = _columns[grid];
 				}
 
 				for (int y = _playerPos.y - _viewRangeVertical - 1; y <= _playerPos.y + _viewRangeVertical + 1; ++y)
