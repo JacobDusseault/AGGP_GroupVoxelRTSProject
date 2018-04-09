@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
@@ -29,14 +30,6 @@ public class Chunk : MonoBehaviour
 	public enum State { Fresh, Prepped, Generating, Loaded, Rendered };
 
 	private State _state = State.Fresh;
-
-	//private Dictionary<Int3, DataChunk>;
-	private DataChunk _upChunk;
-	private DataChunk _downChunk;
-	private DataChunk _northChunk;
-	private DataChunk _southChunk;
-	private DataChunk _eastChunk;
-	private DataChunk _westChunk;
 
 	// Informatics
 	private int _chunkSize;
@@ -71,80 +64,9 @@ public class Chunk : MonoBehaviour
 				{
 					_state = State.Loaded;
 
-					// Attempt to get cardinal chunks
-					// This isn't guaranteed to pass, but as these chunks
-					// generate, they'll inform us of their existence
-					_upChunk = World.GetChunk(_chunkPos.Add(new Int3(0, 1, 0)));
-					if (_upChunk != null && !_upChunk.IsGenerated()) { _upChunk = null; }
-					_downChunk = World.GetChunk(_chunkPos.Add(new Int3(0, -1, 0)));
-					if (_downChunk != null && !_downChunk.IsGenerated()) { _downChunk = null; }
-					_northChunk = World.GetChunk(_chunkPos.Add(new Int3(0, 0, 1)));
-					if (_northChunk != null && !_northChunk.IsGenerated()) { _northChunk = null; }
-					_southChunk = World.GetChunk(_chunkPos.Add(new Int3(0, 0, -1)));
-					if (_southChunk != null && !_southChunk.IsGenerated()) { _southChunk = null; }
-					_eastChunk = World.GetChunk(_chunkPos.Add(new Int3(1, 0, 0)));
-					if (_eastChunk != null && !_eastChunk.IsGenerated()) { _eastChunk = null; }
-					_westChunk = World.GetChunk(_chunkPos.Add(new Int3(-1, 0, 0)));
-					if (_westChunk != null && !_westChunk.IsGenerated()) { _westChunk = null; }
-
-					// Let's now ping them like the baka we are
-					if (_upChunk != null) { _upChunk.GetChunk().Ping(_chunkData, Atlas.Dir.Down); }
-					if (_downChunk != null) { _downChunk.GetChunk().Ping(_chunkData, Atlas.Dir.Up); }
-					if (_northChunk != null) { _northChunk.GetChunk().Ping(_chunkData, Atlas.Dir.South); }
-					if (_southChunk != null) { _southChunk.GetChunk().Ping(_chunkData, Atlas.Dir.North); }
-					if (_eastChunk != null) { _eastChunk.GetChunk().Ping(_chunkData, Atlas.Dir.West); }
-					if (_westChunk != null) { _westChunk.GetChunk().Ping(_chunkData, Atlas.Dir.East); }
-
 					GenerateMesh();
 				}
 				break;
-		}
-	}
-
-	// A chunk exists!
-	public void Ping(DataChunk chunk, Atlas.Dir dir)
-	{
-
-		bool nullCheck = false;
-
-		switch (dir)
-		{
-			case Atlas.Dir.Up:
-				nullCheck = (_upChunk == null);
-				_upChunk = chunk;
-				break;
-
-			case Atlas.Dir.Down:
-				nullCheck = (_downChunk == null);
-				_downChunk = chunk;
-				break;
-
-			case Atlas.Dir.North:
-				nullCheck = (_northChunk == null);
-				_northChunk = chunk;
-				break;
-
-			case Atlas.Dir.South:
-				nullCheck = (_southChunk == null);
-				_southChunk = chunk;
-				break;
-
-			case Atlas.Dir.East:
-				nullCheck = (_eastChunk == null);
-				_eastChunk = chunk;
-				break;
-
-			case Atlas.Dir.West:
-				nullCheck = (_westChunk == null);
-				_westChunk = chunk;
-				break;
-		}
-
-		// We shouldn't run if we already had the chunk before
-		if (nullCheck && _state == State.Rendered)
-		{
-			// Get new surfaces!
-			GenerateMesh(dir);
 		}
 	}
 
@@ -232,91 +154,6 @@ public class Chunk : MonoBehaviour
 		_updateMesh = true;
 	}
 
-	// This generates only border mesh stuff
-	public void GenerateMesh(Atlas.Dir dir)
-	{
-		// Start, end
-		int xS = 0; int xE = _chunkSize;
-		int yS = 0; int yE = _chunkSize;
-		int zS = 0; int zE = _chunkSize;
-		
-		switch (dir)
-		{
-			case Atlas.Dir.Up:
-				yS = _chunkSize; ++yE;
-				break;
-
-			case Atlas.Dir.Down:
-				yE = 1;
-				break;
-
-			case Atlas.Dir.East:
-				xS = _chunkSize; ++xE;
-				break;
-
-			case Atlas.Dir.West:
-				xE = 1;
-				break;
-
-			case Atlas.Dir.North:
-				zS = _chunkSize; ++zE;
-				break;
-
-			case Atlas.Dir.South:
-				zE = 1;
-				break;
-		}
-
-		// Iterate through x, y, z
-		for (int x = xS; x < xE; x++)
-		{
-			for (int y = yS; y < yE; y++)
-			{
-				for (int z = zS; z < zE; z++)
-				{
-					Atlas.ID block = Block(x, y, z);
-
-					// Generate the mesh and texturize
-					if (block != Atlas.ID.Air)
-					{
-						// Out of bounds are done in a separate method
-						if (dir == Atlas.Dir.Up && Block(x, y + 1, z) == Atlas.ID.Air)
-						{
-							CubeUp(x, y, z, block);
-						}
-
-						if (dir == Atlas.Dir.Down && Block(x, y - 1, z) == Atlas.ID.Air)
-						{
-							CubeDown(x, y, z, block);
-						}
-
-						if (dir == Atlas.Dir.East && Block(x + 1, y, z) == Atlas.ID.Air)
-						{
-							CubeEast(x, y, z, block);
-						}
-
-						if (dir == Atlas.Dir.West && Block(x - 1, y, z) == Atlas.ID.Air)
-						{
-							CubeWest(x, y, z, block);
-						}
-
-						if (dir == Atlas.Dir.North && Block(x, y, z + 1) == Atlas.ID.Air)
-						{
-							CubeNorth(x, y, z, block);
-						}
-
-						if (dir == Atlas.Dir.South && Block(x, y, z - 1) == Atlas.ID.Air)
-						{
-							CubeSouth(x, y, z, block);
-						}
-					}
-				}
-			}
-		}
-
-		_updateMesh = true;
-	}
-
 	// Local block to world blocks
 	private Atlas.ID Block(int x, int y, int z)
 	{
@@ -331,39 +168,15 @@ public class Chunk : MonoBehaviour
 		}
 		else
 		{
-			// Outside of bounds, need to fetch
-			if (x == -1 && _westChunk != null)
-			{
-				x = _chunkSize - 1;
-				return _westChunk.GetBlock(x, y, z); // Error
-			}
-			else if (x == _chunkSize && _eastChunk != null)
-			{
-				x = 0;
-				return _eastChunk.GetBlock(x, y, z); // Error
-			}
-			else if (y == -1 && _downChunk != null)
-			{
-				y = _chunkSize - 1;
-				return _downChunk.GetBlock(x, y, z); // Error
-			}
-			else if (y == _chunkSize && _upChunk != null)
-			{
-				y = 0;
-				return _upChunk.GetBlock(x, y, z);
-			}
-			else if (z == -1 && _southChunk != null)
-			{
-				z = _chunkSize - 1;
-				return _southChunk.GetBlock(x, y, z); // Error
-			}
-			else if (z == _chunkSize && _northChunk != null)
-			{
-				z = 0;
-				return _northChunk.GetBlock(x, y, z); // Error
-			}
+			x += _chunkPos.x * _chunkSize;
+			y += _chunkPos.y * _chunkSize;
+			z += _chunkPos.z * _chunkSize;
 
-			return Atlas.ID.Solid; // Don't generate a mesh
+			Int3 pos = World.WhichChunk(new Int3(x, y, z));
+
+			DataColumn column = World.GetColumn(pos);
+
+			return World.GenerateBlock(column, x, y, z);
 		}
 	}
 
