@@ -199,7 +199,7 @@ public class World : MonoBehaviour
 		// Topology
 		float stone = PerlinNoise(x, 500, z, 100, 10, 1f);
 		stone += PerlinNoise(x, 300, z, 50, 4, 1f);
-		//stone = PerlinNoise(x, 0, z, 10, 3, 1.2f);
+		//stone += PerlinNoise(x, 0, z, 20, 2, 1f);
 		
 		// "Plateues"
 		if (false && PerlinNoise(x, 100, z, 100, 10, 1f) >= 9f)
