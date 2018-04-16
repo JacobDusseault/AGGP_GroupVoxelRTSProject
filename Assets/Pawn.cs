@@ -10,9 +10,8 @@ public class Pawn : MonoBehaviour
 	private bool _indiscriminateAttack;
 
 	// Selection
-	[SerializeField] private float _epsilonSelect = 0.1f; // How long must mouse be held to consider drag selection
-	private float _startTimeSelect;
-	private static Vector2 _startPosSelect;
+	[SerializeField] private float _epsilonSelect = 0.1f; // Drag fudging
+	private static Vector2 _startSelect;
 	private bool _selected;
 
 	void Start ()
@@ -28,21 +27,23 @@ public class Pawn : MonoBehaviour
 		// Start select
 		if (Input.GetMouseButtonDown(0))
 		{
-			_startTimeSelect = Time.time;
-			_startPosSelect = Input.mousePosition;
+			//_startTimeSelect = Time.time;
+			_startSelect = Input.mousePosition;
 		}
 
 		// End select
 		if (Input.GetMouseButtonUp(0))
 		{
-			// Click
-			if (Time.time - _startTimeSelect < _epsilonSelect)
+			// Drag
+			if (Vector3.Distance(_startSelect, Input.mousePosition) > _epsilonSelect)
 			{
-
+				
 			}
-			else // Drag
+			else // Click
 			{
-				// _startPosSelect
+				_selected = false;
+
+
 			}
 			
 			// No need to reset prior variables, gets over-written on next click
