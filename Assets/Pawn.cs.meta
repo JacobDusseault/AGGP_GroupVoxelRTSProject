@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: 7d25111f67d8fb94fbe9d40b60223ab9
-timeCreated: 1523905041
+guid: 8e9f3f12dd96fb64b8a617d20f61971f
+timeCreated: 1523905869
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - _troopCenter: {fileID: 1368813561952040, guid: 855b205f8f058a74c852e426b4c8cdb7,
-      type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
