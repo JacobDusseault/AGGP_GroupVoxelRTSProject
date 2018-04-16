@@ -109,4 +109,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d25111f67d8fb94fbe9d40b60223ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _troopCenter: {fileID: 1368813561952040, guid: 855b205f8f058a74c852e426b4c8cdb7,
+    type: 2}
   isolateMesh: 0

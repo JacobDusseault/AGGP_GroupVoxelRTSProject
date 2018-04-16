@@ -35,6 +35,8 @@ public class Chunk : MonoBehaviour
 	private int _chunkSize;
 	private Int3 _chunkPos;
 	private DataChunk _chunkData;
+
+	public GameObject _troopCenter;
 	
 	// Debug
 	public bool isolateMesh;
@@ -74,6 +76,16 @@ public class Chunk : MonoBehaviour
 	{
 		_mesh = GetComponent<MeshFilter>().mesh;
 		_col = GetComponent<MeshCollider>();
+
+		if (_chunkPos.Equals(new Int3(-4, 0, -4)))
+		{
+			GameObject prefab = Instantiate(_troopCenter, transform);
+			Vector3 pos = prefab.transform.localPosition;
+			pos.x = 14.5f;
+			pos.y = 7.5f;
+			pos.z = 1.5f;
+			prefab.transform.localPosition = pos;
+		}
 	}
 
 	void Update()
