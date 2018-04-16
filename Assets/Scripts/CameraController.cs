@@ -40,8 +40,8 @@ public class CameraController : MonoBehaviour
 		if (Input.GetKey("s")) { pos -= fv * speed * Time.deltaTime; }
 		if (Input.GetKey("a")) { pos -= _trans.right * speed * Time.deltaTime; }
 		if (Input.GetKey("d")) { pos += _trans.right * speed * Time.deltaTime; }
-		if (freeLook && Input.GetKey("space")) { pos.y += speed * Time.deltaTime; }
-		if (freeLook && Input.GetKey("left shift")) { pos.y -= speed * Time.deltaTime; }
+		//if (freeLook && Input.GetKey("space")) { pos.y += speed * Time.deltaTime; }
+		//if (freeLook && Input.GetKey("left shift")) { pos.y -= speed * Time.deltaTime; }
 
 		// Set position
 		_trans.position = pos;
@@ -50,7 +50,7 @@ public class CameraController : MonoBehaviour
 		/// Mouse Look
 
 		// Lock cursor
-		if (freeLook && Input.GetMouseButtonDown(0))
+		/*if (freeLook && Input.GetMouseButtonDown(0))
 		{
 			Cursor.lockState = CursorLockMode.Locked;
 		}
@@ -67,6 +67,6 @@ public class CameraController : MonoBehaviour
 
 			// Set children's transform's rotation
 			_trans.rotation = Quaternion.Euler(_pitch, _yaw, 0);
-		}
+		}*/
 	}
 }

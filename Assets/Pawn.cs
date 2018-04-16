@@ -6,7 +6,7 @@ public class Pawn : MonoBehaviour
 {
 	private CharacterController _chara;
 
-	private Vector2 _moveTo;
+	private Vector3 _moveTo;
 	private bool _indiscriminateAttack;
 
 	// Selection
@@ -17,17 +17,14 @@ public class Pawn : MonoBehaviour
 	void Start ()
 	{
 		_chara = GetComponent<CharacterController>();
+		_moveTo = transform.position;
 	}
 	
 	void Update ()
 	{
-		_chara.Move(Vector3.forward * Time.deltaTime * 3f); // Test movement
-		_chara.Move(Vector3.down * Time.deltaTime * 5f); // Dodo fall-off-cliff physics
-
 		// Start select
 		if (Input.GetMouseButtonDown(0))
 		{
-			//_startTimeSelect = Time.time;
 			_startSelect = Input.mousePosition;
 		}
 
@@ -37,7 +34,7 @@ public class Pawn : MonoBehaviour
 			// Drag
 			if (Vector3.Distance(_startSelect, Input.mousePosition) > _epsilonSelect)
 			{
-				
+				_selected = true; // temp
 			}
 			else // Click
 			{
@@ -45,8 +42,32 @@ public class Pawn : MonoBehaviour
 
 
 			}
-			
-			// No need to reset prior variables, gets over-written on next click
 		}
+
+		// Actions
+		if (_selected && Input.GetMouseButtonUp(1))
+		{
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit;
+
+			if (Physics.Raycast(ray, out hit))
+			{
+				_moveTo = hit.point;
+			}
+		}
+
+		_moveTo.y = transform.position.y;
+
+		// Move to position
+		if (Vector3.Distance(transform.position, _moveTo) > 1f)
+		{
+			Vector3 dir = _moveTo - transform.position;
+
+			dir.Normalize();
+
+			_chara.Move(dir * Time.deltaTime * 3f);
+		}
+		
+		_chara.Move(Vector3.down * Time.deltaTime * 5f); // Dodo fall-off-cliff physics
 	}
 }
