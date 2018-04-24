@@ -27,7 +27,11 @@ MonoBehaviour:
   m_Int_values: 00000000020000000000000000000000
   m_Float_values:
   - 0
+<<<<<<< HEAD
   - 0
+=======
+  - 565
+>>>>>>> 1de16b71dc06d4b92c8a702b21016af2a78407b0
   m_String_values: []
   m_Color_values: []
   m_Material_values: []
