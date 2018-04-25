@@ -109,6 +109,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d25111f67d8fb94fbe9d40b60223ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _troopCenter: {fileID: 1368813561952040, guid: 855b205f8f058a74c852e426b4c8cdb7,
+  _townCenter: {fileID: 1583207991528820, guid: 93f0538836f5e4445b53cb78ab57b966,
     type: 2}
+  _troopCenter: {fileID: 1067917264792328, guid: 15039952478ae854287306f218ed3dfb,
+    type: 2}
+  _archerTower: {fileID: 1531325934391336, guid: e760a251eaaccff40893914d0fcbb21d,
+    type: 2}
+  _farm: {fileID: 1069568388805272, guid: b46510a0bcc1b884d97e27f3834f4309, type: 2}
+  _goldMine: {fileID: 1168339492509130, guid: 0577884e6f3f2c34d9d6182636a0e87d, type: 2}
   isolateMesh: 0

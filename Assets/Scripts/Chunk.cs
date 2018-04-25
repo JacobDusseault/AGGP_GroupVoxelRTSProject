@@ -36,8 +36,12 @@ public class Chunk : MonoBehaviour
 	private Int3 _chunkPos;
 	private DataChunk _chunkData;
 
+	public GameObject _townCenter;
 	public GameObject _troopCenter;
-	
+	public GameObject _archerTower;
+	public GameObject _farm;
+	public GameObject _goldMine;
+
 	// Debug
 	public bool isolateMesh;
 	private bool _updateIso;
