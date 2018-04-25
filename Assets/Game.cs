@@ -52,6 +52,7 @@ public class Game : MonoBehaviour
 				{
 					pawns[i].Deselect();
 				}
+			}
 
 			_startSelect = Vector2.zero;
 		}
