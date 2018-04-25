@@ -52,6 +52,19 @@ public class Game : MonoBehaviour
 				{
 					pawns[i].Deselect();
 				}
+
+				Ray ray = Camera.main.ScreenPointToRay(_endSelect);
+				RaycastHit hit;
+
+				if (Physics.Raycast(ray, out hit, Mathf.Infinity, (1 << 8)))
+				{
+					Pawn pawn = hit.collider.gameObject.GetComponent<Pawn>();
+					
+					if (pawn)
+					{
+						pawn.Select();
+					}
+				}
 			}
 
 			_startSelect = Vector2.zero;
