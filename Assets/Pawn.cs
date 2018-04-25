@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class Pawn : MonoBehaviour
 {
+	[SerializeField] private float _speed = 5f;
 	private CharacterController _chara;
-
 	private Vector3 _moveTo;
 	private bool _indiscriminateAttack;
-
-	// Selection
-	[SerializeField] private float _epsilonSelect = 0.1f; // Drag fudging
-	private static Vector2 _startSelect;
-	private bool _selected;
+	private bool _selected = false;
 
 	void Start ()
 	{
@@ -22,35 +18,13 @@ public class Pawn : MonoBehaviour
 	
 	void Update ()
 	{
-		// Start select
-		if (Input.GetMouseButtonDown(0))
-		{
-			_startSelect = Input.mousePosition;
-		}
-
-		// End select
-		if (Input.GetMouseButtonUp(0))
-		{
-			// Drag
-			if (Vector3.Distance(_startSelect, Input.mousePosition) > _epsilonSelect)
-			{
-				_selected = true; // temp
-			}
-			else // Click
-			{
-				_selected = false;
-
-
-			}
-		}
-
 		// Actions
 		if (_selected && Input.GetMouseButtonUp(1))
 		{
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 
-			if (Physics.Raycast(ray, out hit))
+			if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(1 << 8)))
 			{
 				_moveTo = hit.point;
 			}
@@ -65,9 +39,21 @@ public class Pawn : MonoBehaviour
 
 			dir.Normalize();
 
-			_chara.Move(dir * Time.deltaTime * 3f);
+			_chara.Move(dir * Time.deltaTime * _speed);
 		}
 		
 		_chara.Move(Vector3.down * Time.deltaTime * 5f); // Dodo fall-off-cliff physics
+	}
+
+	public void Select()
+	{
+		_selected = true;
+		GetComponent<Renderer>().material.color = Color.red;
+	}
+
+	public void Deselect()
+	{
+		_selected = false;
+		GetComponent<Renderer>().material.color = new Color(1f, 0.5f, 0.5f);
 	}
 }
