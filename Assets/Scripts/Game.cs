@@ -21,7 +21,7 @@ public class Game : MonoBehaviour
 		// End select
 		if (Input.GetMouseButtonUp(0))
 		{
-			Pawn[] pawns = FindObjectsOfType<Pawn>();
+			Selectable[] pawns = FindObjectsOfType<Selectable>();
 			
 			// Normalize
 			float xS = Mathf.Min(_startSelect.x, _endSelect.x);
@@ -58,7 +58,7 @@ public class Game : MonoBehaviour
 
 				if (Physics.Raycast(ray, out hit, Mathf.Infinity, (1 << 8)))
 				{
-					Pawn pawn = hit.collider.gameObject.GetComponent<Pawn>();
+					Selectable pawn = hit.collider.gameObject.GetComponent<Selectable>();
 					
 					if (pawn)
 					{
