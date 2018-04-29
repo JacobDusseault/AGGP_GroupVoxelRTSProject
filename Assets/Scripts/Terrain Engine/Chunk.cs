@@ -85,9 +85,9 @@ public class Chunk : MonoBehaviour
 		{
 			GameObject prefab = Instantiate(_troopCenter, transform);
 			Vector3 pos = prefab.transform.localPosition;
-			pos.x = 14.5f;
+			pos.x = 8f;
 			pos.y = 7.5f;
-			pos.z = 1.5f;
+			pos.z = 8f;
 			prefab.transform.localPosition = pos;
 		}
 	}
