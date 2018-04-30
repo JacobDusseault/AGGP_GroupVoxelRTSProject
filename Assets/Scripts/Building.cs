@@ -45,7 +45,7 @@ public class Building : Selectable
 		_active = false;
 	}
 	
-	protected void ActOn(string action)
+	protected virtual void ActOn(string action)
 	{
 		// Override
 	}
