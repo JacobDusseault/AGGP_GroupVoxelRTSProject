@@ -33,3 +33,4 @@ sysinfo.txt
 *.apk
 *.unitypackage
 Assets/Assemblies/Priority Queue.pdb.meta
+ProjectSettings/ProjectVersion.txt

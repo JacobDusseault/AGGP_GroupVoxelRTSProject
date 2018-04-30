@@ -11,6 +11,14 @@ public class TroopCenter : Building
 	
 	void Update ()
 	{
-		
+		if (Input.GetKeyDown("space"))
+		{
+			ActOn("Test");
+		}
+	}
+
+	protected override void ActOn(string action)
+	{
+		Debug.Log("Space pressed!");
 	}
 }
