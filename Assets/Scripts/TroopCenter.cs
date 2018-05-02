@@ -4,18 +4,35 @@ using UnityEngine;
 
 public class TroopCenter : Building
 {
+    public GameObject _soldier;
+
     protected new const int _maxHealth = 100;
-	
-	void Update ()
+
+    protected override void Update()
 	{
-		if (GetSelect() && Input.GetKeyDown("space"))
+        base.Update();
+
+        if (GetSelect() && Input.GetKeyDown("space"))
 		{
-			ActOn("Test");
+            Queue(new Action("Soldier", 1f));
 		}
 	}
 
 	protected override void ActOn(string action)
 	{
-		Debug.Log("Space pressed!");
+        switch (action)
+        {
+            case "Soldier":
+                GameObject unit = Instantiate(_soldier, transform.position + Vector3.right * 10f, Quaternion.identity);
+
+                unit.GetComponent<Selectable>().SetTeam(Selectable.Team.Red);
+                break;
+
+            default:
+                Debug.Log("Unknown action!");
+                break;
+        }
+
+        Debug.Log("Action completed: " + action);
 	}
 }
