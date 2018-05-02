@@ -35,8 +35,8 @@ public class Building : Selectable
     protected void Queue(Action action)
 	{
 		_queue.Enqueue(action);
+        if (!_active) { _timer = action.GetDuration(); }
 		_active = true;
-		_timer = action.GetDuration();
 	}
 
 	public void Activate()
