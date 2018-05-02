@@ -24,6 +24,10 @@ public class Building : Selectable
                 {
                     _timer = _queue.Peek().GetDuration();
                 }
+                else
+                {
+                    _active = false;
+                }
             }
         }
     }
