@@ -5,22 +5,26 @@ using UnityEngine;
 public class Selectable : MonoBehaviour
 {
 	public enum Team { Neutral, Red, Blue };
-
-	public Team team = Team.Neutral;
-
-	protected bool _selected = false;
-
-    private int _health;
+    
     protected const int _maxHealth = 0;
+
+    private bool _selected = false;
+    private int _health;
+    private Team _team = Team.Neutral;
 
     void Start()
     {
         _health = _maxHealth;
     }
 
+    public bool GetSelect()
+    {
+        return _selected;
+    }
+
     public void Select()
     {
-        if (team == Team.Red)
+        if (_team == Team.Red)
         {
             _selected = true;
             GetComponent<Renderer>().material.color = Color.red;
@@ -29,16 +33,24 @@ public class Selectable : MonoBehaviour
 
 	public void Deselect()
     {
-        if (team == Team.Red)
+        if (_team == Team.Red)
         {
             _selected = false;
             GetComponent<Renderer>().material.color = new Color(1f, 0.5f, 0.5f);
         }
 	}
 
+    public Team GetTeam()
+    {
+        return _team;
+    }
+
     public void SetTeam(Team t)
     {
-        team = t;
+        if (_team == Team.Neutral)
+        {
+            _team = t;
+        }
     }
 
     public int GetHealth()

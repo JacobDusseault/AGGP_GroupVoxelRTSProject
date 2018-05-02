@@ -17,10 +17,10 @@ public class Unit : Selectable
 	
 	void Update ()
 	{
-        if (team == Team.Red)
+        if (GetTeam() == Team.Red)
         {
             // Actions
-            if (_selected && Input.GetMouseButtonUp(1))
+            if (GetSelect() && Input.GetMouseButtonUp(1))
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
