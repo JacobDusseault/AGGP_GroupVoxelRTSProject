@@ -8,7 +8,7 @@ public class TroopCenter : Building
 	
 	void Update ()
 	{
-		if (Input.GetKeyDown("space"))
+		if (GetSelect() && Input.GetKeyDown("space"))
 		{
 			ActOn("Test");
 		}

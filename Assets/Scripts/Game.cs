@@ -58,8 +58,8 @@ public class Game : MonoBehaviour
 
 				if (Physics.Raycast(ray, out hit, Mathf.Infinity, (1 << 8)))
 				{
-					Selectable pawn = hit.collider.gameObject.GetComponent<Selectable>();
-					
+					Selectable pawn = hit.collider.gameObject.GetComponentInParent<Selectable>();
+
 					if (pawn)
 					{
 						pawn.Select();
