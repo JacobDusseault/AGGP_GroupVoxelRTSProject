@@ -22,12 +22,17 @@ public class Selectable : MonoBehaviour
         return _selected;
     }
 
+    protected virtual void SetColor(Color c)
+    {
+        // Override
+    }
+
     public void Select()
     {
         if (_team == Team.Red)
         {
             _selected = true;
-            GetComponent<Renderer>().material.color = Color.red;
+            SetColor(Color.red);
         }
 	}
 
@@ -36,7 +41,7 @@ public class Selectable : MonoBehaviour
         if (_team == Team.Red)
         {
             _selected = false;
-            GetComponent<Renderer>().material.color = new Color(1f, 0.5f, 0.5f);
+            SetColor(new Color(1f, 0.5f, 0.5f));
         }
 	}
 
@@ -50,6 +55,9 @@ public class Selectable : MonoBehaviour
         if (_team == Team.Neutral)
         {
             _team = t;
+
+            if (t == Team.Red) { SetColor(new Color(1f, 0.5f, 0.5f)); }
+            else if (t == Team.Blue) { SetColor(new Color(0.5f, 0.5f, 1f)); }
         }
     }
 
