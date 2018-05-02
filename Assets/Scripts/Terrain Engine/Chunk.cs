@@ -84,13 +84,33 @@ public class Chunk : MonoBehaviour
 		if (_chunkPos.Equals(new Int3(-4, 0, -4)))
 		{
 			GameObject prefab = Instantiate(_troopCenter, transform);
+
+            // Set location
 			Vector3 pos = prefab.transform.localPosition;
 			pos.x = 8f;
 			pos.y = 7.5f;
 			pos.z = 8f;
 			prefab.transform.localPosition = pos;
+
+            // Set team
+            prefab.GetComponent<TroopCenter>().SetTeam(Selectable.Team.Red);
 		}
-	}
+
+        if (_chunkPos.Equals(new Int3(4, 0, 4)))
+        {
+            GameObject prefab = Instantiate(_troopCenter, transform);
+
+            // Set location
+            Vector3 pos = prefab.transform.localPosition;
+            pos.x = 8f;
+            pos.y = 7.5f;
+            pos.z = 8f;
+            prefab.transform.localPosition = pos;
+
+            // Set team
+            prefab.GetComponent<TroopCenter>().SetTeam(Selectable.Team.Blue);
+        }
+    }
 
 	void Update()
 	{
