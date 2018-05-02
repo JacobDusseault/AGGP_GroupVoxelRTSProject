@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class TroopCenter : Building
 {
-	void Start ()
-	{
-		
-	}
+    protected new const int _maxHealth = 100;
 	
 	void Update ()
 	{

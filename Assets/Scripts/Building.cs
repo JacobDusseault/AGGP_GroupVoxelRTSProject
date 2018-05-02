@@ -7,7 +7,7 @@ public class Building : Selectable
 	protected Queue<Action> _queue;
 	protected bool _active = false;
 	protected float _timer = 0f;
-	
+    
 	void Update ()
 	{
 		// Are there things in the queue that need dequeueing?

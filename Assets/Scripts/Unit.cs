@@ -43,4 +43,9 @@ public class Unit : Selectable
 		
 		_chara.Move(Vector3.down * Time.deltaTime * 5f); // Dodo fall-off-cliff physics
 	}
+
+    protected override void Kill()
+    {
+        Destroy(gameObject);
+    }
 }
