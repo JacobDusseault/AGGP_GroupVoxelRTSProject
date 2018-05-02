@@ -19,16 +19,27 @@ public class Selectable : MonoBehaviour
     }
 
     public void Select()
-	{
-		_selected = true;
-		GetComponent<Renderer>().material.color = Color.red;
+    {
+        if (team == Team.Red)
+        {
+            _selected = true;
+            GetComponent<Renderer>().material.color = Color.red;
+        }
 	}
 
 	public void Deselect()
-	{
-		_selected = false;
-		GetComponent<Renderer>().material.color = new Color(1f, 0.5f, 0.5f);
+    {
+        if (team == Team.Red)
+        {
+            _selected = false;
+            GetComponent<Renderer>().material.color = new Color(1f, 0.5f, 0.5f);
+        }
 	}
+
+    public void SetTeam(Team t)
+    {
+        team = t;
+    }
 
     public int GetHealth()
     {

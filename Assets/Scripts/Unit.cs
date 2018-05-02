@@ -17,17 +17,20 @@ public class Unit : Selectable
 	
 	void Update ()
 	{
-		// Actions
-		if (_selected && Input.GetMouseButtonUp(1))
-		{
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
+        if (team == Team.Red)
+        {
+            // Actions
+            if (_selected && Input.GetMouseButtonUp(1))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
 
-			if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(1 << 8)))
-			{
-				_moveTo = hit.point;
-			}
-		}
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(1 << 8)))
+                {
+                    _moveTo = hit.point;
+                }
+            }
+        }
 
 		_moveTo.y = transform.position.y;
 
