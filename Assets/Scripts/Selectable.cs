@@ -6,11 +6,11 @@ public class Selectable : MonoBehaviour
 {
     public Image healthBar;
 	public enum Team { Neutral, Red, Blue };
-    
-    protected const int _maxHealth = 0;
 
-    private bool _selected = false;
-    protected int _health;
+	[SerializeField] protected int _maxHealth = 0;
+	protected int _health;
+
+	private bool _selected = false;
     private Team _team = Team.Neutral;
 
     protected virtual void Start()
@@ -73,7 +73,7 @@ public class Selectable : MonoBehaviour
 
         healthBar.fillAmount = (float) _health / (float) _maxHealth;
 
-        if (_health < 0)
+        if (_health <= 0)
         {
             Kill();
         }

@@ -1,17 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TroopCenter : Building
 {
     public GameObject _soldier;
 
-    protected new const int _maxHealth = 2500;
+    //protected int _maxHealth = 2500;
 
 	private int _gold = 60;
 	private int _food = 600;
 
-	//private GameHUD _hud;
+	private GameHUD _hud;
 
 	protected override void Start()
 	{
@@ -19,7 +20,9 @@ public class TroopCenter : Building
 		_health = _maxHealth;
 		InvokeRepeating("Resources", 1f, 1f);
 
-		//_hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<GameHUD>();
+		//healthBar = GetComponentInChildren<Image>();
+
+		_hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<GameHUD>();
 	}
 
 	protected override void Update()

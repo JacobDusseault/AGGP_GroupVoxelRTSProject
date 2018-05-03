@@ -109,9 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d25111f67d8fb94fbe9d40b60223ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _townCenter: {fileID: 1583207991528820, guid: 93f0538836f5e4445b53cb78ab57b966,
+  _townCenter: {fileID: 1999442502850530, guid: dc7700457a40c7d46ba63d3a7c0071f8,
     type: 2}
-  _troopCenter: {fileID: 1067917264792328, guid: 15039952478ae854287306f218ed3dfb,
+  _troopCenter: {fileID: 1407097092830300, guid: 53c7cacf454601e40a3fed4497d07312,
     type: 2}
   _archerTower: {fileID: 1531325934391336, guid: e760a251eaaccff40893914d0fcbb21d,
     type: 2}

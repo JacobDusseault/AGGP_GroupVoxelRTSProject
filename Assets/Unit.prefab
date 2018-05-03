@@ -176,10 +176,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 114545462894159998}
+  _maxHealth: 100
   _rock: {fileID: 1564738330707188, guid: 40c1be24293edf54097a4fa7580e3fa0, type: 2}
   _speed: 8
   _attackRate: 1
-  _maxHealth: 100
 --- !u!114 &114908039246713276
 MonoBehaviour:
   m_ObjectHideFlags: 1
