@@ -24,6 +24,14 @@ public class Unit : Selectable
 
 		_chara = GetComponent<CharacterController>();
 		_moveTo = transform.position;
+
+		if (GetTeam() == Team.Blue)
+		{
+			Vector2 circ = Random.insideUnitCircle * 10f;
+			Vector3 flatCirc = new Vector3(circ.x, 0, circ.y);
+
+			_moveTo = new Vector3(-40, 0, -60) + flatCirc;
+		}
 	}
 	
 	void Update ()
@@ -38,17 +46,13 @@ public class Unit : Selectable
 
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(1 << 8)))
                 {
-					Vector2 circ = Random.insideUnitCircle * 5;
+					Vector2 circ = Random.insideUnitCircle * 5f;
 					Vector3 flatCirc = new Vector3(circ.x, 0, circ.y);
 
 					_moveTo = hit.point + flatCirc;
                 }
             }
         }
-		else if (GetTeam() == Team.Blue)
-		{
-			_moveTo = new Vector3(-40, 0, -60);
-		}
 
 		_moveTo.y = transform.position.y;
 
@@ -102,8 +106,20 @@ public class Unit : Selectable
 				if (pawns[i].GetTeam() != GetTeam() && Vector3.Distance(gameObject.transform.position, pawns[i].transform.position) < 45f)
 				{
 					_attackTarget = pawns[i].gameObject;
+					if (GetTeam() == Team.Blue)
+					{
+						_moveTo = transform.position; //stop moving
+					}
 					break;
 				}
+			}
+
+			if (GetTeam() == Team.Blue && !_attackTarget)
+			{
+				Vector2 circ = Random.insideUnitCircle * 10f;
+				Vector3 flatCirc = new Vector3(circ.x, 0, circ.y);
+
+				_moveTo = new Vector3(-40, 0, -60) + flatCirc;
 			}
 		}
 	}
