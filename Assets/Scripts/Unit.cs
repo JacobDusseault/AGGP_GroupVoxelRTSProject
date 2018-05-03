@@ -99,7 +99,7 @@ public class Unit : Selectable
 			for (int i = 0; i < pawns.Length; ++i)
 			{
 				// Opposite team
-				if (pawns[i].GetTeam() != GetTeam())
+				if (pawns[i].GetTeam() != GetTeam() && Vector3.Distance(gameObject.transform.position, pawns[i].transform.position) < 45f)
 				{
 					_attackTarget = pawns[i].gameObject;
 					break;
