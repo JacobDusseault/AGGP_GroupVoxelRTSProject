@@ -11,7 +11,7 @@ public class TroopCenter : Building
 	private int _gold = 60;
 	private int _food = 600;
 
-	//private GameHUD _hud;
+	private GameHUD _hud;
 
 	protected override void Start()
 	{
@@ -19,7 +19,7 @@ public class TroopCenter : Building
 		_health = _maxHealth;
 		InvokeRepeating("Resources", 1f, 1f);
 
-		//_hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<GameHUD>();
+		_hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<GameHUD>();
 	}
 
 	protected override void Update()
@@ -72,4 +72,16 @@ public class TroopCenter : Building
 
         //Debug.Log("Action completed: " + action);
 	}
+
+    protected override void Kill()
+    {
+        if (GetTeam() == Team.Red)
+        {
+            _hud.LosePanel();
+        }
+        else if (GetTeam() == Team.Blue)
+        {
+            _hud.WinPanel();
+        }
+    }
 }
