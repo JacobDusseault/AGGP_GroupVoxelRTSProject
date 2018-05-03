@@ -45,6 +45,10 @@ public class Unit : Selectable
                 }
             }
         }
+		else if (GetTeam() == Team.Blue)
+		{
+			_moveTo = new Vector3(-40, 0, -60);
+		}
 
 		_moveTo.y = transform.position.y;
 

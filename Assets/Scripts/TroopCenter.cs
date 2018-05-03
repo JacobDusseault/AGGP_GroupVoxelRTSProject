@@ -56,7 +56,7 @@ public class TroopCenter : Building
 		switch (action)
         {
             case "Soldier":
-                unit = Instantiate(_soldier, transform.position + Vector3.back * 10f, Quaternion.identity);
+                unit = Instantiate(_soldier, transform.position + Vector3.back * 10f + Vector3.up * 5f, Quaternion.identity);
 
                 unit.GetComponent<Selectable>().SetTeam(GetTeam());
                 break;
