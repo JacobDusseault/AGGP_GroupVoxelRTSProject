@@ -18,8 +18,12 @@ public class World : MonoBehaviour
 	[SerializeField] private static int _viewRangeVertical = 3;
 	private static Int3 _playerPos;
 
+	private static float _offset = 0f;
+
 	void Start()
 	{
+		_offset = UnityEngine.Random.Range(0f, 1000f);
+
 		_playerPos = new Int3(Camera.main.transform.position / _chunkSize);
 
 		GenerateChunks();
@@ -214,6 +218,8 @@ public class World : MonoBehaviour
 
 	public static float PerlinNoise(float x, float y, float z, float scale, float height, float power)
 	{
+		y += _offset;
+
 		float rValue;
 		rValue = Noise.Noise.GetNoise(((double)x) / scale, ((double)y) / scale, ((double)z) / scale);
 		rValue *= height;

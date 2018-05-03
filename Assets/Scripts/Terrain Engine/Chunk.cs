@@ -88,8 +88,8 @@ public class Chunk : MonoBehaviour
             // Set location
 			Vector3 pos = prefab.transform.localPosition;
 			pos.x = 8f;
-			pos.y = 7.5f;
 			pos.z = 8f;
+			pos.y = 0.5f + World.GenerateTopology(-55, -55);
 			prefab.transform.localPosition = pos;
 
             // Set team
@@ -103,9 +103,9 @@ public class Chunk : MonoBehaviour
             // Set location
             Vector3 pos = prefab.transform.localPosition;
             pos.x = 8f;
-            pos.y = 7.5f;
             pos.z = 8f;
-            prefab.transform.localPosition = pos;
+			pos.y = 0.5f + World.GenerateTopology(70, 70);
+			prefab.transform.localPosition = pos;
 
             // Set team
             prefab.GetComponent<TroopCenter>().SetTeam(Selectable.Team.Blue);
