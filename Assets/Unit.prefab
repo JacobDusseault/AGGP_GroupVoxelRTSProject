@@ -96,7 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9f3f12dd96fb64b8a617d20f61971f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rock: {fileID: 1206022127781780, guid: d3324bac29c1b4544a3490d342f37d7d, type: 2}
   _speed: 5
+  _attackRate: 1
 --- !u!136 &136636454438239428
 CapsuleCollider:
   m_ObjectHideFlags: 1
