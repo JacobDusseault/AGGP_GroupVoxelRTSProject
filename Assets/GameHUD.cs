@@ -24,6 +24,7 @@ public class GameHUD : MonoBehaviour {
             OpeningPanel.SetActive(false);
             PausePanel.SetActive(true);
             GamePanel.SetActive(false);
+            Time.timeScale = 0f;
         }
     }
 
@@ -32,6 +33,7 @@ public class GameHUD : MonoBehaviour {
         OpeningPanel.SetActive(false);
         PausePanel.SetActive(false);
         GamePanel.SetActive(true);
+        Time.timeScale = 1f;
     }
 
     public void QuitGame()
