@@ -80,7 +80,7 @@ public class Unit : Selectable
 	{
 		GameObject rock = Instantiate(_rock, transform.position + Vector3.up * 0f, Quaternion.identity);
 		Vector3 dir = (enemy.transform.position + Random.insideUnitSphere * 1.5f) - rock.transform.position;
-		rock.GetComponent<Rigidbody>().AddForce(dir * 100f);
+		rock.GetComponent<Rigidbody>().AddForce(dir.normalized * 1500f);
 		rock.GetComponentInChildren<Projectile>().SetTeam(GetTeam());
 
 		_attackDelay = _attackRate + Random.Range(-0.2f, 0.2f);
