@@ -39,7 +39,7 @@ public class Projectile : MonoBehaviour
 	{
 		if (_active)
 		{
-			Selectable pawn = col.gameObject.GetComponentInParent<Selectable>();
+			Selectable pawn = col.gameObject.GetComponent<Selectable>();
 			
 			if (pawn && pawn.GetTeam() != _team)
 			{

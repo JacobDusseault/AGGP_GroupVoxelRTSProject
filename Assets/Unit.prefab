@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rock: {fileID: 1564738330707188, guid: 40c1be24293edf54097a4fa7580e3fa0, type: 2}
-  _speed: 8
+  _speed: 5
   _attackRate: 1
   _maxHealth: 100
 --- !u!136 &136636454438239428

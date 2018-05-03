@@ -24,14 +24,6 @@ public class Unit : Selectable
 
 		_chara = GetComponent<CharacterController>();
 		_moveTo = transform.position;
-
-		if (GetTeam() == Team.Blue)
-		{
-			Vector2 circ = Random.insideUnitCircle * 10f;
-			Vector3 flatCirc = new Vector3(circ.x, 0, circ.y);
-
-			_moveTo = new Vector3(-40, 0, -60) + flatCirc;
-		}
 	}
 	
 	void Update ()
@@ -46,7 +38,7 @@ public class Unit : Selectable
 
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(1 << 8)))
                 {
-					Vector2 circ = Random.insideUnitCircle * 5f;
+					Vector2 circ = Random.insideUnitCircle * 5;
 					Vector3 flatCirc = new Vector3(circ.x, 0, circ.y);
 
 					_moveTo = hit.point + flatCirc;
@@ -88,7 +80,7 @@ public class Unit : Selectable
 	{
 		GameObject rock = Instantiate(_rock, transform.position + Vector3.up * 0f, Quaternion.identity);
 		Vector3 dir = (enemy.transform.position + Random.insideUnitSphere * 1.5f) - rock.transform.position;
-		rock.GetComponent<Rigidbody>().AddForce(dir.normalized * 1500f);
+		rock.GetComponent<Rigidbody>().AddForce(dir * 100f);
 		rock.GetComponentInChildren<Projectile>().SetTeam(GetTeam());
 
 		_attackDelay = _attackRate + Random.Range(-0.2f, 0.2f);
@@ -98,28 +90,16 @@ public class Unit : Selectable
 	{
 		if (_indiscriminateAttack && !_attackTarget)
 		{
-			Selectable[] pawns = FindObjectsOfType<Selectable>();
+			Unit[] pawns = FindObjectsOfType<Unit>();
 
 			for (int i = 0; i < pawns.Length; ++i)
 			{
 				// Opposite team
-				if (pawns[i].GetTeam() != GetTeam() && Vector3.Distance(gameObject.transform.position, pawns[i].transform.position) < 45f)
+				if (pawns[i].GetTeam() != GetTeam())
 				{
 					_attackTarget = pawns[i].gameObject;
-					if (GetTeam() == Team.Blue)
-					{
-						_moveTo = transform.position; //stop moving
-					}
 					break;
 				}
-			}
-
-			if (GetTeam() == Team.Blue && !_attackTarget)
-			{
-				Vector2 circ = Random.insideUnitCircle * 10f;
-				Vector3 flatCirc = new Vector3(circ.x, 0, circ.y);
-
-				_moveTo = new Vector3(-40, 0, -60) + flatCirc;
 			}
 		}
 	}
