@@ -9,10 +9,10 @@ public class Selectable : MonoBehaviour
     protected const int _maxHealth = 0;
 
     private bool _selected = false;
-    private int _health;
+    protected int _health;
     private Team _team = Team.Neutral;
 
-    void Start()
+    protected virtual void Start()
     {
         _health = _maxHealth;
     }
