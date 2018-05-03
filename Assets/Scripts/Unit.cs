@@ -8,14 +8,20 @@ public class Unit : Selectable
 
 	[SerializeField] private float _speed = 5f;
 	[SerializeField] private float _attackRate = 1f;
+	[SerializeField] protected new int _maxHealth = 100;
 	private CharacterController _chara;
 	private Vector3 _moveTo;
 	private bool _indiscriminateAttack = true;
 	private float _attackDelay = 0f;
 	private GameObject _attackTarget;
 
-	void Start ()
+	private float _timer = 0f;
+
+	protected override void Start ()
 	{
+		//base.Start();
+		_health = _maxHealth;
+
 		_chara = GetComponent<CharacterController>();
 		_moveTo = transform.position;
 	}
@@ -55,6 +61,33 @@ public class Unit : Selectable
 		_chara.Move(Vector3.down * Time.deltaTime * 5f); // Dodo fall-off-cliff physics
 
 		// Attacking
+		// Timer stuff
+		_timer -= Time.deltaTime;
+		if (_timer <= 0)
+		{
+			FindTarget();
+			_timer = 5f;
+		}
+
+		_attackDelay -= Time.deltaTime;
+		if (_attackDelay <= 0f && _attackTarget != null) // Check if exists
+		{
+			Attack(_attackTarget);
+		}
+	}
+	
+	protected void Attack(GameObject enemy)
+	{
+		GameObject rock = Instantiate(_rock, transform.position + Vector3.up * 0f, Quaternion.identity);
+		Vector3 dir = (enemy.transform.position + Random.insideUnitSphere * 1.5f) - rock.transform.position;
+		rock.GetComponent<Rigidbody>().AddForce(dir * 100f);
+		rock.GetComponentInChildren<Projectile>().SetTeam(GetTeam());
+
+		_attackDelay = _attackRate + Random.Range(-0.2f, 0.2f);
+	}
+
+	protected void FindTarget()
+	{
 		if (_indiscriminateAttack && !_attackTarget)
 		{
 			Unit[] pawns = FindObjectsOfType<Unit>();
@@ -69,21 +102,6 @@ public class Unit : Selectable
 				}
 			}
 		}
-
-		_attackDelay -= Time.deltaTime;
-		if (_attackTarget != null && _attackDelay <= 0f) // Check if exists
-		{
-			Attack(_attackTarget);
-		}
-	}
-	
-	protected void Attack(GameObject enemy)
-	{
-		GameObject rock = Instantiate(_rock, transform.position + Vector3.up * 2f, Quaternion.identity);
-		Vector3 dir = enemy.transform.position - rock.transform.position;
-		rock.GetComponent<Rigidbody>().AddForce(dir * 150f);
-
-		_attackDelay = _attackRate;
 	}
 
     protected override void SetColor(Color c)
