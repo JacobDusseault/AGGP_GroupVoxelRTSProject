@@ -11,17 +11,21 @@ public class TroopCenter : Building
 	private int _gold = 60;
 	private int _food = 600;
 
+	//private GameHUD _hud;
+
 	protected override void Start()
 	{
 		//base.Start();
 		_health = _maxHealth;
 		InvokeRepeating("Resources", 1f, 1f);
+
+		//_hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<GameHUD>();
 	}
 
 	protected override void Update()
 	{
         base.Update();
-
+		
 		if (GetTeam() == Selectable.Team.Red)
 		{
 			if (GetSelect())
