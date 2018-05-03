@@ -8,7 +8,6 @@ public class GameHUD : MonoBehaviour {
     public GameObject PausePanel;
     public GameObject GamePanel;
     public Canvas Canvas;
-	public bool Pause = false;
 
     // Use this for initialization
     void Start () {
@@ -26,7 +25,6 @@ public class GameHUD : MonoBehaviour {
             PausePanel.SetActive(true);
             GamePanel.SetActive(false);
             Time.timeScale = 0f;
-			Pause = false;
 		}
     }
 
@@ -36,7 +34,6 @@ public class GameHUD : MonoBehaviour {
         PausePanel.SetActive(false);
         GamePanel.SetActive(true);
         Time.timeScale = 1f;
-		Pause = false;
     }
 
     public void QuitGame()
