@@ -71,7 +71,7 @@ public class Selectable : MonoBehaviour
     {
         _health -= damage;
 
-        healthBar.fillAmount = _health;
+        healthBar.fillAmount = (float) _health / (float) _maxHealth;
 
         if (_health < 0)
         {
