@@ -3166,7 +3166,6 @@ MonoBehaviour:
   PausePanel: {fileID: 1537140647}
   GamePanel: {fileID: 467065622}
   Canvas: {fileID: 887313612}
-  Pause: 0
 --- !u!1 &923446891
 GameObject:
   m_ObjectHideFlags: 0
