@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TroopCenter : Building
 {
     public GameObject _soldier;
 
-    protected new const int _maxHealth = 2500;
+    //protected int _maxHealth = 2500;
 
 	private int _gold = 60;
 	private int _food = 600;
+	private bool _slowTime = false;
 
 	private GameHUD _hud;
 
@@ -19,6 +21,11 @@ public class TroopCenter : Building
 		_health = _maxHealth;
 		InvokeRepeating("Resources", 1f, 1f);
 
+<<<<<<< HEAD
+=======
+		//healthBar = GetComponentInChildren<Image>();
+
+>>>>>>> 4b38525b82d8251ab1e2d86ff0e4f7cb3ada03d2
 		_hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<GameHUD>();
 	}
 
@@ -39,11 +46,16 @@ public class TroopCenter : Building
 		}
 		else
 		{
-			if (Random.Range(0, 600) == 0 && _food > 50)
+			if (Random.Range(0, 300 + (int) (((float) _health / (float) _maxHealth) * 300)) == 0 && _food > 50)
 			{
 				Queue(new Action("Soldier", 1f));
 				_food -= 50;
 			}
+		}
+
+		if (_slowTime && Time.timeScale > 0)
+		{
+			Time.timeScale -= 0.01f;
 		}
 	}
 
@@ -73,6 +85,7 @@ public class TroopCenter : Building
         //Debug.Log("Action completed: " + action);
 	}
 
+<<<<<<< HEAD
     protected override void Kill()
     {
         if (GetTeam() == Team.Red)
@@ -84,4 +97,10 @@ public class TroopCenter : Building
             _hud.WinPanel();
         }
     }
+=======
+	protected override void Kill()
+	{
+		_slowTime = true;
+	}
+>>>>>>> 4b38525b82d8251ab1e2d86ff0e4f7cb3ada03d2
 }

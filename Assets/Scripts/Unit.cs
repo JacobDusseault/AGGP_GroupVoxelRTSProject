@@ -7,7 +7,7 @@ public class Unit : Selectable
 
 	[SerializeField] private float _speed = 5f;
 	[SerializeField] private float _attackRate = 1f;
-	[SerializeField] protected new const int _maxHealth = 100;
+	//[SerializeField] protected int _maxHealth = 100;
 	private CharacterController _chara;
 	private Vector3 _moveTo;
 	private bool _indiscriminateAttack = true;
