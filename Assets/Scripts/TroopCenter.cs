@@ -93,6 +93,4 @@ public class TroopCenter : Building
             _hud.WinPanel();
         }
     }
-
-    //
 }
