@@ -6,23 +6,51 @@ public class TroopCenter : Building
 {
     public GameObject _soldier;
 
-    protected new const int _maxHealth = 100;
+    protected new const int _maxHealth = 2500;
 
-    protected override void Update()
+	private int _gold = 60;
+	private int _food = 600;
+
+	//private GameHUD _hud;
+
+	protected override void Start()
+	{
+		//base.Start();
+		_health = _maxHealth;
+		InvokeRepeating("Resources", 1f, 1f);
+
+		//_hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<GameHUD>();
+	}
+
+	protected override void Update()
 	{
         base.Update();
-
-        if (GetSelect())
+		
+		if (GetTeam() == Selectable.Team.Red)
 		{
-			if (Input.GetKeyDown(KeyCode.Space))
+			if (GetSelect())
 			{
-				Queue(new Action("Soldier", 1f));
-			}
-			if (Input.GetKeyDown(KeyCode.Backspace))
-			{
-				Queue(new Action("Enemy", 1f));
+				if (Input.GetKeyDown(KeyCode.Space) && _food > 50)
+				{
+					Queue(new Action("Soldier", 1f));
+					_food -= 50;
+				}
 			}
 		}
+		else
+		{
+			if (Random.Range(0, 600) == 0 && _food > 50)
+			{
+				Queue(new Action("Soldier", 1f));
+				_food -= 50;
+			}
+		}
+	}
+
+	private void Resources()
+	{
+		_gold += 1;
+		_food += 10;
 	}
 
 	protected override void ActOn(string action)
@@ -32,22 +60,16 @@ public class TroopCenter : Building
 		switch (action)
         {
             case "Soldier":
-                unit = Instantiate(_soldier, transform.position + Vector3.back * 10f, Quaternion.identity);
+                unit = Instantiate(_soldier, transform.position + Vector3.back * 10f + Vector3.up * 5f, Quaternion.identity);
 
-                unit.GetComponent<Selectable>().SetTeam(Selectable.Team.Red);
+                unit.GetComponent<Selectable>().SetTeam(GetTeam());
                 break;
-
-			case "Enemy":
-				unit = Instantiate(_soldier, transform.position + Vector3.back * 10f, Quaternion.identity);
-
-				unit.GetComponent<Selectable>().SetTeam(Selectable.Team.Blue);
-				break;
 
 			default:
                 Debug.Log("Unknown action!");
                 break;
         }
 
-        Debug.Log("Action completed: " + action);
+        //Debug.Log("Action completed: " + action);
 	}
 }

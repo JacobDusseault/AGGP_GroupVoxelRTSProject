@@ -98,7 +98,7 @@ public class Chunk : MonoBehaviour
 
         if (_chunkPos.Equals(new Int3(4, 0, 4)))
         {
-            GameObject prefab = Instantiate(_troopCenter, transform);
+            GameObject prefab = Instantiate(_townCenter, transform);
 
             // Set location
             Vector3 pos = prefab.transform.localPosition;
