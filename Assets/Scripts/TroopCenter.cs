@@ -92,10 +92,7 @@ public class TroopCenter : Building
         {
             _hud.WinPanel();
         }
-    }
 
-	protected override void Kill()
-	{
 		_slowTime = true;
 	}
 }
