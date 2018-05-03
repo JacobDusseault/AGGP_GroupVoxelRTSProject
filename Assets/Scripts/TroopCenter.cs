@@ -12,23 +12,38 @@ public class TroopCenter : Building
 	{
         base.Update();
 
-        if (GetSelect() && Input.GetKeyDown("space"))
+        if (GetSelect())
 		{
-            Queue(new Action("Soldier", 1f));
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				Queue(new Action("Soldier", 1f));
+			}
+			if (Input.GetKeyDown(KeyCode.Backspace))
+			{
+				Queue(new Action("Enemy", 1f));
+			}
 		}
 	}
 
 	protected override void ActOn(string action)
 	{
-        switch (action)
+		GameObject unit;
+
+		switch (action)
         {
             case "Soldier":
-                GameObject unit = Instantiate(_soldier, transform.position + Vector3.back * 10f, Quaternion.identity);
+                unit = Instantiate(_soldier, transform.position + Vector3.back * 10f, Quaternion.identity);
 
                 unit.GetComponent<Selectable>().SetTeam(Selectable.Team.Red);
                 break;
 
-            default:
+			case "Enemy":
+				unit = Instantiate(_soldier, transform.position + Vector3.back * 10f, Quaternion.identity);
+
+				unit.GetComponent<Selectable>().SetTeam(Selectable.Team.Blue);
+				break;
+
+			default:
                 Debug.Log("Unknown action!");
                 break;
         }

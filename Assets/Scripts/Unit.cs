@@ -35,7 +35,7 @@ public class Unit : Selectable
 		_moveTo.y = transform.position.y;
 
 		// Move to position
-		if (Vector3.Distance(transform.position, _moveTo) > 1f)
+		if (Vector3.Distance(transform.position, _moveTo) > 0.5f)
 		{
 			Vector3 dir = _moveTo - transform.position;
 
