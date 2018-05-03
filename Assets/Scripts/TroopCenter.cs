@@ -6,7 +6,7 @@ public class TroopCenter : Building
 {
     public GameObject _soldier;
 
-    protected new const int _maxHealth = 1000;
+    protected new const int _maxHealth = 2500;
 
 	private int _gold = 60;
 	private int _food = 600;
