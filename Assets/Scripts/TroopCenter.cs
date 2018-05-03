@@ -35,7 +35,7 @@ public class TroopCenter : Building
 		}
 		else
 		{
-			if (Random.Range(0, 320) == 0 && _food > 50)
+			if (Random.Range(0, 600) == 0 && _food > 50)
 			{
 				Queue(new Action("Soldier", 1f));
 				_food -= 50;
