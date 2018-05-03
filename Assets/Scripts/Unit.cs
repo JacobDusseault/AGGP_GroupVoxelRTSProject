@@ -98,7 +98,7 @@ public class Unit : Selectable
 	{
 		if (_indiscriminateAttack && !_attackTarget)
 		{
-			Unit[] pawns = FindObjectsOfType<Unit>();
+			Selectable[] pawns = FindObjectsOfType<Selectable>();
 
 			for (int i = 0; i < pawns.Length; ++i)
 			{
