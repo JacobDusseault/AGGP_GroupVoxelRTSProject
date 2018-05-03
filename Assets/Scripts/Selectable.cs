@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Selectable : MonoBehaviour
 {
+    public Image healthBar;
 	public enum Team { Neutral, Red, Blue };
     
     protected const int _maxHealth = 0;
@@ -69,6 +70,9 @@ public class Selectable : MonoBehaviour
     public void Hurt(int damage)
     {
         _health -= damage;
+
+        healthBar.fillAmount = _health;
+
         if (_health < 0)
         {
             Kill();
