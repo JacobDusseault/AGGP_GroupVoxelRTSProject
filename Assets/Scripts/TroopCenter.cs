@@ -20,12 +20,9 @@ public class TroopCenter : Building
 		//base.Start();
 		_health = _maxHealth;
 		InvokeRepeating("Resources", 1f, 1f);
-
-<<<<<<< HEAD
-=======
+		
 		//healthBar = GetComponentInChildren<Image>();
 
->>>>>>> 4b38525b82d8251ab1e2d86ff0e4f7cb3ada03d2
 		_hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<GameHUD>();
 	}
 
@@ -84,8 +81,7 @@ public class TroopCenter : Building
 
         //Debug.Log("Action completed: " + action);
 	}
-
-<<<<<<< HEAD
+	
     protected override void Kill()
     {
         if (GetTeam() == Team.Red)
@@ -97,10 +93,9 @@ public class TroopCenter : Building
             _hud.WinPanel();
         }
     }
-=======
+
 	protected override void Kill()
 	{
 		_slowTime = true;
 	}
->>>>>>> 4b38525b82d8251ab1e2d86ff0e4f7cb3ada03d2
 }
