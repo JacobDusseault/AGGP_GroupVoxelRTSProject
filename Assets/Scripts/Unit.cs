@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Unit : Selectable
 {
+	public GameObject _rock;
+
 	[SerializeField] private float _speed = 5f;
+	[SerializeField] private float _attackRate = 1f;
 	private CharacterController _chara;
 	private Vector3 _moveTo;
-	private bool _indiscriminateAttack;
+	private bool _indiscriminateAttack = true;
+	private float _attackDelay = 0f;
+	private GameObject _attackTarget;
 
 	void Start ()
 	{
@@ -27,7 +32,10 @@ public class Unit : Selectable
 
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(1 << 8)))
                 {
-                    _moveTo = hit.point;
+					Vector2 circ = Random.insideUnitCircle * 5;
+					Vector3 flatCirc = new Vector3(circ.x, 0, circ.y);
+
+					_moveTo = hit.point + flatCirc;
                 }
             }
         }
@@ -35,7 +43,7 @@ public class Unit : Selectable
 		_moveTo.y = transform.position.y;
 
 		// Move to position
-		if (Vector3.Distance(transform.position, _moveTo) > 1f)
+		if (Vector3.Distance(transform.position, _moveTo) > 0.5f)
 		{
 			Vector3 dir = _moveTo - transform.position;
 
@@ -45,6 +53,37 @@ public class Unit : Selectable
 		}
 		
 		_chara.Move(Vector3.down * Time.deltaTime * 5f); // Dodo fall-off-cliff physics
+
+		// Attacking
+		if (_indiscriminateAttack && !_attackTarget)
+		{
+			Unit[] pawns = FindObjectsOfType<Unit>();
+
+			for (int i = 0; i < pawns.Length; ++i)
+			{
+				// Opposite team
+				if (pawns[i].GetTeam() != GetTeam())
+				{
+					_attackTarget = pawns[i].gameObject;
+					break;
+				}
+			}
+		}
+
+		_attackDelay -= Time.deltaTime;
+		if (_attackTarget != null && _attackDelay <= 0f) // Check if exists
+		{
+			Attack(_attackTarget);
+		}
+	}
+	
+	protected void Attack(GameObject enemy)
+	{
+		GameObject rock = Instantiate(_rock, transform.position + Vector3.up * 2f, Quaternion.identity);
+		Vector3 dir = enemy.transform.position - rock.transform.position;
+		rock.GetComponent<Rigidbody>().AddForce(dir * 150f);
+
+		_attackDelay = _attackRate;
 	}
 
     protected override void SetColor(Color c)
